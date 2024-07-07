@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+#define MOD 12345
+
+int count_sequences(int n) {
+    if (n == 1) return 2;
+    if (n == 2) return 4;
+
+    int a_prev = 2, b_prev = 1, c_prev = 1, d_prev = 0;
+    int a_curr, b_curr, c_curr, d_curr;
+
+    for (int i = 2; i < n; ++i) {
+        a_curr = (b_prev + c_prev + d_prev) % MOD;
+        b_curr = a_prev;
+        c_curr = b_prev;
+        d_curr = c_prev;
+
+        a_prev = a_curr;
+        b_prev = b_curr;
+        c_prev = c_curr;
+        d_prev = d_curr;
+    }
+
+    return a_curr;
+}
+
+int main() {
+    int n;
+    printf("Введіть довжину послідовностей n: ");
+    scanf("%d", &n);
+
+    if (n <= 1 || n >= 10000) {
+        printf("n повинно бути більше 1 і менше 10000.\n");
+        return 1;
+    }
+
+    int result = count_sequences(n);
+    printf("Кількість шуканих послідовностей довжиною %d: %d\n", n, result);
+
+    return 0;
+}
