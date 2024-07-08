@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int compare_char(const void *a, const void *b) 
+{
+    return (*(char *)a - *(char *)b);
+}
+
+
+int count_anagrams(char *word) 
+{
+    int len = strlen(word);
+    qsort(word, len, sizeof(char), compare_char);
+
+    int count = 1;
+    for (int i = 1; i < len; i++) 
+    {
+        if (word[i] != word[i - 1]) 
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int main() 
+{
+    char word[15];
+    printf("Введіть слово: ");
+    scanf("%s", word);
+
+    int result = count_anagrams(word);
+    printf("Кількість анаграм: %d\n", result);
+
+    return 0;
+}
+
